@@ -157,7 +157,7 @@
 		$wp_query->query('posts_per_page=1');
 		while ($wp_query->have_posts()) : $wp_query->the_post();
 		?>
-
+		<!-- fajfda -->
 		<div <?php post_class('blog_post nine columns') ?> id="post-<?php the_ID(); ?>">
 			<div class="rightbox">
 				<h3><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h3>
