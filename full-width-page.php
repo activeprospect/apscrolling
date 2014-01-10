@@ -8,16 +8,15 @@
 get_header(); 
 #get_template_part( 'menu', 'index' ); //the  menu + logo/site title ?>
 
-    <div class="sixteen columns alpha">
- 		<div id="primary" class="full-width">
+
+		 <div class="container">
+ 
  			<div id="content">
 
  				<?php the_post(); ?>
 
  				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> role="article">
- 					<header class="entry-header">
- 					
- 					</header><!-- .entry-header -->
+ 			
 
 					<div class="entry-content">
  						<?php the_content(); ?>
@@ -29,7 +28,8 @@ get_header();
  				<?php #comments_template( '', true ); ?>
 
  			</div><!-- #content -->
- 		</div><!-- #primary -->
-     </div>
-                
+
+		</div>
+
+		<br><br><br><br>
 <?php get_footer(); ?>

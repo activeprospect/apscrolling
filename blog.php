@@ -34,7 +34,7 @@
 
 				<div class="rightbox">
 				<h3><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h3>
-				<span class="date"><?php the_date(); ?>, by:&nbsp;</span> <span class="author"><?php the_author(); ?></span>
+				<span class="date"><?php the_date(); ?>, by:&nbsp;</span><span class="author"><?php the_author(); ?></span>
 				<div class="the_excerpt"><?php the_excerpt(); ?></div>
 				<br>
 

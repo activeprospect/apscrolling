@@ -37,12 +37,7 @@ if ( is_home() ) {
 
 <!-- Mobile Specific Metas
 ================================================== -->
-<?php $isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad'); ?>
-<?php if ( $isiPad ) : #This is an iPad! ?>
-<meta name="viewport" content="width=device-width; initial-scale=.75; maximum-scale=1.0;">
-<?php else : # Not an iPad ?>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-<?php endif; ?>
+<meta name="viewport" content="width=1280">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta property="og:url" content="http://activeprospect.com"/>
 <meta property="og:title" content="Lower Acquisition Costs. Better Quality. Real-Time Data Integration."/>
@@ -52,8 +47,9 @@ if ( is_home() ) {
 
 <!-- JS
 ================================================== -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/javascripts/carousel.js"></script>
+
 <script src="<?php echo get_template_directory_uri(); ?>/javascripts/app.js"></script>
 
 <!-- TypeKit -->
@@ -68,7 +64,7 @@ if ( is_home() ) {
 ================================================== -->
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/stylesheets/base.css">
 <link rel="stylesheet" href= "<?php echo get_template_directory_uri(); ?>/style.css">
-<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/stylesheets/layout.css">
+<!-- <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/stylesheets/layout.css"> -->
 
 <!-- Favicons
 ================================================== -->
@@ -95,29 +91,57 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	<?php if ( is_home() ) : #HOME PAGE?>
 		<section class="home">
+			
 			<div class="main container">
-
+					<h1 class="animated fadeInDown">Start Qualifying Your Online Leads from the First Click</h1>
 				<div class="sixteen columns">
-				<div class="heading">
-				<h1>Lower Acquisition Costs. Better Quality. Real-Time Data Integration.<br>All for Just Pennies Per Lead.</h1>
-					<h3>ActiveProspect helps marketers automatically qualify internet leads in real time.</h3>
-				</div>							
+					<div class="heading list_carousel animated fadeInDown">				
+					<ul id="heroes">
+						<li>	
+							<h4>Automatically capture and store TCPA proof of consent in real time.</h4>
+							<a href="#" class="lc-button link-button">Learn More »</a>
+							<div style="clear:both;"></div>
+						</li>
+							<li>
+								<h4>Instantly suppress "do not contact" list phone numbers and emails.</h4>
+								<a href="#" class="lc-button link-button">Learn More »</a>
+								<div style="clear:both;"></div>
+							</li>
+							<li>
+								<h4>Better lead quality. Lower acquisition costs. Higher conversion.</h4>
+								<a href="#" class="lc-button link-button">Learn More »</a>
+								<div style="clear:both;"></div>
+							</li>
+							<li>
+								<h4>Sales-ready leads. Qualified and routed in less than a second.</h4>
+								<a href="#" class="lc-button link-button">Learn More »</a>
+								<div style="clear:both;"></div>
+							</li>
+					
+					</ul>				
+				 <!-- <a id="prev" class="prev" href="#">&lt;</a>
+				<a id="next" class="next" href="#">&gt;</a> -->
+				<div style="clear:both;"></div>
+				<div id="mainpager" class="mainpager"></div>
+
+					</div>							
 				</div>
 
 
 			</div>
 
 			<div style="clear:both"></div>
+			<div class>
 		</section>
 	<?php elseif (is_page(9) ) : # Pricing?>
-	<section class="gray page">
+	<section class="gray page animated fadeIn">
 				<div class="container">
 					<div class="sixteen columns">
 						<?php the_title('<h1>', '</h1>'); ?>
 						<p>As a solution provider, we allow our clients to customize our services based on their needs. We offer services in three core groups: Technology Services, Professional Services, and Media Services. </p>
 					</div>
 				</div>
-							<div style="clear:both"></div>
+						<div style="clear:both"></div>
 				</section>
 
 		<?php else : # all other pages ?>
@@ -134,5 +158,5 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			<?php endif; ?>
 
 
-			<!-- <div class="container"> -->
+			<!-- <div class="container">  -->
 

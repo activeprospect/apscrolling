@@ -1,8 +1,5 @@
-
-
-</div>
-
 <footer>
+	<div id="loading"><img src="<?php echo get_stylesheet_directory_uri() . '/images/ajax-loader.gif' ?>"></div>
 	<section role="apfooter" id="apfooter">
 		<div class="content">
 				<div class="container">
@@ -13,7 +10,8 @@
 							<li><a href="#">Privacy</a></li>
 							<li><a href="#">Security</a></li>
 							<li><a href="#">Careers</a></li>
-							<li><a href="#">About Us</a></li>
+							<li><a href="#">Blog</a></li>
+								<li><a href="#">About Us</a></li>
 						</ul>
 						<h4 style="margin-bottom:10px;margin-top:35px">Follow Us</h4>
 						<a href="https://twitter.com/#!/activeprospect" target="_blank"><img src="<?php echo get_stylesheet_directory_uri() . '/images/ctw.png' ?>" width="23" height="23" alt="Twitter"></a>
@@ -31,7 +29,10 @@
 						<h4>Subscribe</h4>
 						<p>Enter your email and sign up for our newsletter</p>
 						<form method="post" id="newsletter_form" name="newsletter_form">
-							<input type="text" class="newsletter_email" name="newsletter_email" placeholder="Enter your email address">
+							<input type="text" class="newsletter_email" name="newsletter_email" placeholder="Enter your email address" value="">
+								<input type="hidden" name="source" value="<?php echo $_SESSION['source']; ?>">
+								<input type="hidden" name="subsource" value="<?php echo $_SESSION['subsource']; ?>">
+								<input type="hidden" name="newsletter">
 							<button type="submit" id="submit_newsletter" class="submit_newsletter">Subscribe</button>
 						</form>		<br>
 						
@@ -44,17 +45,8 @@
 								<li>	<a href="http://performancemarketingassociation.com/"><img src="<?php echo get_stylesheet_directory_uri() . '/images/theseal.png' ?>"  alt="PMA"></a></li>
 								<li>	<a href="http://www.prweb.com/releases/2012/10/prweb10042667.htm" target="_blank"><img src="<?php echo get_stylesheet_directory_uri() . '/images/seal-fast50.png' ?>"  alt="Fast50" width="70" height="69"></a></li>
 								
-							</ul>
-							
-								
-								
-								
-				
-				
-				
-				
-				
-					
+							</ul>						
+										
 					</div>
 					
 					</div>
@@ -80,6 +72,9 @@
 										<option value="other">Other</option>
 									</select>
 								</div>
+									<input type="hidden" name="contactus">
+									<input type="hidden" name="source" value="<?php echo $_SESSION['source']; ?>">
+									<input type="hidden" name="subsource" value="<?php echo $_SESSION['subsource']; ?>">
 								<button type="submit" id="submit_contactus" class="submit_contactus">Contact Us</button>
 						</form>					
 					</div>

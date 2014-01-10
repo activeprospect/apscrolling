@@ -4,7 +4,7 @@
     <div class="seven columns alpha">
         <div class="logo">
             <a href="<?php echo home_url(); //make logo a home link?>">
-           <img src="<?php echo get_stylesheet_directory_uri() . '/images/logo_w.png'?>">
+           <img src="<?php echo get_stylesheet_directory_uri() . '/images/logo2.png'?>">
             </a>
         </div>
     </div>

@@ -1,48 +1,5 @@
 jQuery(document).ready(function($) {
 
-
-
-  function DropDown(el) {
-    this.dd = el;
-    this.placeholder = this.dd.children('span');
-    this.opts = this.dd.find('ul.dropdown > li');
-    this.val = '';
-    this.index = -1;
-    this.initEvents();
-  }
-  DropDown.prototype = {
-    initEvents: function() {
-      var obj = this;
-
-      obj.dd.on('click', function(event) {
-        $(this).toggleClass('active');
-        return false;
-      });
-
-      obj.opts.on('click', function() {
-        var opt = $(this);
-        obj.val = opt.text();
-        obj.index = opt.index();
-        obj.placeholder.text('Heard of us through: ' + obj.val);
-      });
-    },
-    getValue: function() {
-      return this.val;
-    },
-    getIndex: function() {
-      return this.index;
-    }
-  }
-
-  $(function() {
-    var dd = new DropDown($('#dd'));
-    $(document).click(function() {
-      // home select dropdown
-      $('.wrapper-dropdown').removeClass('active');
-    });
-  });
-
-
   $(function() { // run after page loads
     $('.menu-primary-container ul').find('li.current-menu-item, .home li#menu-item-27').addClass('active').prev('li').end();
     $('body .home').find('.menu-primary-container li:first-child').addClass('active');
@@ -70,33 +27,36 @@ jQuery(document).ready(function($) {
     });
   });
 
-  $(function() {
 
-    $('#firstSlide').fadeIn(1000);
-    thequotes();
 
-    function thequotes() {
-      quotes = setInterval(function() {
-        $('#testimonials .slide').filter(':visible').fadeOut(1000, function() {
-          if ($(this).next('li.slide').size()) {
-            $(this).next().fadeIn(500);
-          } else {
-            $('#testimonials .slide').eq(0).fadeIn(500);
-          }
-
-        });
-      }, 8000);
+  //Main Carosuel
+  $('#heroes').carouFredSel({
+    auto: true,
+    prev: '#prev',
+    next: '#next',
+    pagination: "#mainpager",
+    infinite: true,
+    mousewheel: true,
+    delay: 3000,
+    timeoutDuration: 5000,
+    items: {
+      visible: 1,
+    },
+    scroll: {
+      easing: 'quadratic',
+      fx: "fade",
+      duration: 1200,
+      pauseOnHover: true
+    },
+    swipe: {
+      onMouse: true,
+      onTouch: true
+    },
+    onBefore: function() {
+      $("#prev").addClass("animated fadeInDown");
+      $("#next").addClass("animated fadeInDown");
     }
-    // Stops the quote when hovered
-    $("#testimonials .slide").hover(function() {
-      clearInterval(quotes);
-    }, function() {
-      thequotes();
-    });
-
-
-  });
-
+  })
   // Smooth Scroll to Contact Us
   $(function() {
     $('a[href*=#]:not([href=#])').click(function() {
@@ -113,37 +73,157 @@ jQuery(document).ready(function($) {
     });
   });
 
+  $(function() {
+    var $blocks = $('.animBlock.notViewed');
+    var $window = $(window);
+    $window.on('scroll', function(e) {
+      $blocks.each(function(i, elem) {
+        if ($(this).hasClass('viewed')) return;
+        scrollToview($(this));
+      });
+    });
+  });
+
+  function scrollToview(elem) {
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+    var elemOffset = 0;
+
+    if (elem.data('offset') != undefined) {
+      elemOffset = elem.data('offset');
+    }
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    if (elemOffset != 0) { // offset is updated on scrolling direction
+      if (docViewTop - elemTop >= 0) {
+        // scrolling from bottom up
+        elemTop = $(elem).offset().top + elemOffset;
+      } else {
+        // scrolling top to bottom
+        elemBottom = elemTop + $(elem).height() - elemOffset
+      }
+    }
+
+    if ((elemBottom <= docViewBottom) && (elemTop >= docViewTop)) {
+      // once an element is visible swap classes
+      $(elem).removeClass('notViewed').addClass('viewed');
+
+      var animElemsLeft = $('.animBlock.notViewed').length;
+      if (animElemsLeft == 0) {
+        // with no animated elements left debind the scroll event
+        $(window).off('scroll');
+      }
+    }
+  }
+
+
   if ($("html").hasClass("ie8")) {
     $("section#team li:nth-child(odd)").addClass('list-margin');
     $("section.team li:nth-child(odd)").addClass('list-margin');
   };
 
-  // //Carosuel
-//   $("#foo2").carouFredSel({
-//     circular: false,
-//     infinite: true,
-//     auto: true,
-//     width: "variable",
-//     items: {
-//       visible: 4,
-//     },
-//     scroll: {
-//       fx: "fade",
-//       duration: 1000,
-//     },
-//     prev: {
-//       button: "#tf_prev",
-//       key: "left"
-//     },
-//     next: {
-//       button: "#tf_next",
-//       key: "right"
-//     },
-//     pagination: "#tf_pag"
-//   });
+  //Testimonials Carosuel
+  $('#testimonials').carouFredSel({
+    auto: true,
+    prev: '#prev2',
+    next: '#next2',
+    pagination: "#pager2",
+    infinite: true,
+    mousewheel: true,
+    delay: 3000,
+    timeoutDuration: 5000,
+    items: {
+      visible: 3,
+      height: 385,
+    },
+    scroll: {
+      easing: 'quadratic',
+      fx: "fade",
+      duration: 1200,
+      pauseOnHover: true
+    },
+    swipe: {
+      onMouse: true,
+      onTouch: true
+    },
+    onBefore: function() {
+      $("#prev2").addClass("animated fadeInDown");
+      $("#next2").addClass("animated fadeInDown");
+    }
+  });
 
 
-  //Carosuel
+ // Ajax loading gif
+	$('#loading')
+			.hide() 
+	    .ajaxStart(function() {
+	        $(this).show();
+	    })
+	    .ajaxStop(function() {
+	        $(this).hide();
+	    });
+	
+	
+  //Newlsetter Ajax call
+  $('#submit_newsletter').click(function() {
+		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+		var emailaddress = $("#email").val();
+		
+		//Email validation
+		if(emailaddress == '') {
+			if(emailaddress == '') {
+					alert ('Your email can not be blank');
+					event.preventDefault();	
+			}
+			else if(!emailReg.test(emailaddress)) {
+					alert ('Please make sure you email is in correct format.');
+					event.preventDefault();	
+			}
+		}
+			
+		var values = $('#newsletter_form').serialize();
+		
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8888/activeprospect/www/wp-content/themes/activeprospect2/process.php',
+      data:  values,
+      dataType: 'json',
+      async: false,
+      beforeSend: function() {
+         $('#newsletter_form').text('Loading...');
+      
+      },
+      complete: function() {
+         $('#newsletter_form').html('Cool beans');
+				
+      }
+    });
+  });
+
+  //Contact Us Ajax Call
+  $('#submit_contactus').click(function() {
+		 var dataString = $("#contactus_form").serialize();
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8888/activeprospect/www/wp-content/themes/activeprospect2/process.php',
+      data: dataString,
+      dataType: 'json',
+      async: false,
+      success: function(d) {
+        $('#contactus_form').html('Success');
+      },
+      beforeSend: function() {
+        // Code to display spinner
+   
+      },
+      complete: function() {
+        $('#contactus_form').html('Success');
+      }
+    });
+  });
+
+  //Footer Form
   $("#found_input").change(function() {
     $(this).addClass('white');
   });
@@ -176,7 +256,7 @@ jQuery(document).ready(function($) {
 
 
 /* Tabs Activiation
-	================================================== */
+		================================================== */
   var tabs = $('ul.tabs');
   tabs.each(function(i) {
     //Get all tabs
