@@ -1,4 +1,4 @@
-/* Table of Content
+/*
 ==================================================
 #Reset & Basics
 #Basic Styles
@@ -430,7 +430,7 @@ a.link-button:active {
 ================================================== */
 .product_trustedform .content-lc {
 	float:right;
-	}
+}
 .product_leadconduit img {
 	float:left;
 	width:450px;
@@ -460,7 +460,6 @@ a.lc-button {
 		-moz-border-radius: 4px;
 		border-radius: 4px;
 		font:normal 16px 'Proxima Nova', arial;
-		float:right;
 }
 
 a.lc-button :active {
@@ -618,7 +617,7 @@ section.home {
 }
 .home .rightbox h3 {
 	width:100%;
-}
+} 
 section.home .sixteen {
 	background-image:url('../images/backarrows.png'), url('../images/form2.png');
 	background-repeat:no-repeat, no-repeat;
@@ -655,6 +654,9 @@ section.home .caroufredsel_wrapper {
 	clear:both;
 	height:200px!important;
 	margin-top:50px!important;
+}
+.caroufredsel_wrapper .link-button {
+	float:right;
 }
 #heroes {
 	width:350px!important;
@@ -2034,7 +2036,7 @@ animation-name: fadeInDown
 @-ms-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
-}​
+}
 
 /* Opera */
 @-o-keyframes fadein {

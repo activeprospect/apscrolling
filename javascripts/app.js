@@ -154,56 +154,52 @@ jQuery(document).ready(function($) {
   });
 
 
- // Ajax loading gif
-	$('#loading')
-			.hide() 
-	    .ajaxStart(function() {
-	        $(this).show();
-	    })
-	    .ajaxStop(function() {
-	        $(this).hide();
-	    });
-	
-	
+  // Ajax loading gif
+  $('#loading').hide().ajaxStart(function() {
+    $(this).show();
+  }).ajaxStop(function() {
+    $(this).hide();
+  });
+
+
   //Newlsetter Ajax call
   $('#submit_newsletter').click(function() {
-		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-		var emailaddress = $("#email").val();
-		
-		//Email validation
-		if(emailaddress == '') {
-			if(emailaddress == '') {
-					alert ('Your email can not be blank');
-					event.preventDefault();	
-			}
-			else if(!emailReg.test(emailaddress)) {
-					alert ('Please make sure you email is in correct format.');
-					event.preventDefault();	
-			}
-		}
-			
-		var values = $('#newsletter_form').serialize();
-		
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    var emailaddress = $("#email").val();
+
+    //Email validation
+    if (emailaddress == '') {
+      if (emailaddress == '') {
+        alert('Your email can not be blank');
+        event.preventDefault();
+      } else if (!emailReg.test(emailaddress)) {
+        alert('Please make sure you email is in correct format.');
+        event.preventDefault();
+      }
+    }
+
+    var values = $('#newsletter_form').serialize();
+
     $.ajax({
       type: 'POST',
       url: 'http://localhost:8888/activeprospect/www/wp-content/themes/activeprospect2/process.php',
-      data:  values,
+      data: values,
       dataType: 'json',
       async: false,
       beforeSend: function() {
-         $('#newsletter_form').text('Loading...');
-      
+        $('#newsletter_form').text('Loading...');
+
       },
       complete: function() {
-         $('#newsletter_form').html('Cool beans');
-				
+        $('#newsletter_form').html('Cool beans');
+
       }
     });
   });
 
   //Contact Us Ajax Call
   $('#submit_contactus').click(function() {
-		 var dataString = $("#contactus_form").serialize();
+    var dataString = $("#contactus_form").serialize();
     $.ajax({
       type: 'POST',
       url: 'http://localhost:8888/activeprospect/www/wp-content/themes/activeprospect2/process.php',
@@ -215,7 +211,6 @@ jQuery(document).ready(function($) {
       },
       beforeSend: function() {
         // Code to display spinner
-   
       },
       complete: function() {
         $('#contactus_form').html('Success');
