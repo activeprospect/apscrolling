@@ -1606,6 +1606,14 @@ footer .badges li:nth-child(4) img {
 	margin-bottom:0;
 	display:inline;
 }
+.newsletter_error {
+	font-size: 13px;
+	color: #E74B4F;
+}
+.contactus_error {
+	font-size: 13px;
+	color: #E74B4F;
+}
 #contactus_form input {
 	margin-bottom:10px;
 }
@@ -1639,7 +1647,7 @@ footer .phone {
 footer .six  {
 	padding:0 0 0 30px;
 }
-footer .first_name,  footer .last_name,  footer .phone,  footer .phoneext {
+footer .first_name,  footer .last_name,  footer .phone2,  footer .phoneext {
 	width:46%;
 	display:inline;
 }
@@ -1761,8 +1769,8 @@ footer > #apfooter {
 }
 footer .footer_logo {
 	margin:15px 0;
-}
-#apfooter .company, #apfooter .company a {
+	}
+#apfooter .company a {
 	color:#a9a9a9;
 	font-family:arial;
 	font-size:11px;

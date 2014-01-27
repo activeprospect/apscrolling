@@ -1,12 +1,42 @@
 jQuery(document).ready(function($) {
 
+  var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+  };
+
+  if (isMobile.any()) $('div, img').removeClass('notViewed animBlock');
+
+
+  if ($("html").hasClass("ie8")) {
+    $("section#team li:nth-child(odd)").addClass('list-margin');
+    $("section.team li:nth-child(odd)").addClass('list-margin');
+  };
+
+
   $(function() { // run after page loads
     $('.menu-primary-container ul').find('li.current-menu-item, .home li#menu-item-27').addClass('active').prev('li').end();
     $('body .home').find('.menu-primary-container li:first-child').addClass('active');
   });
 
   $(function() { // run after page loads
-    $('#ljsubpageswidget-2 ul').find('li.current_page_item').addClass('subactive')
+    $('#ljsubpageswidget-2 ul').find('li.current_page_item').addClass('subactive');
 
     //jobs pages highlight Careers tab
     $(".page-template-aboutus-php").find(".menu-item-90").addClass("active").prev('li').addClass('rem-seperator');
@@ -73,6 +103,8 @@ jQuery(document).ready(function($) {
     });
   });
 
+
+  // Load scrolling animations
   $(function() {
     var $blocks = $('.animBlock.notViewed');
     var $window = $(window);
@@ -118,11 +150,6 @@ jQuery(document).ready(function($) {
   }
 
 
-  if ($("html").hasClass("ie8")) {
-    $("section#team li:nth-child(odd)").addClass('list-margin');
-    $("section.team li:nth-child(odd)").addClass('list-margin');
-  };
-
   //Testimonials Carosuel
   $('#testimonials').carouFredSel({
     auto: true,
@@ -163,23 +190,22 @@ jQuery(document).ready(function($) {
 
 
   //Newlsetter Ajax call
-  $('#submit_newsletter').click(function() {
-    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-    var emailaddress = $("#email").val();
+  $('#submit_newsletter').on("click", function() {
+    var emailReg = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9\-]+\.)+([a-zA-Z]{2,4})))$/;
+    var emailaddress = $("#newsletter_email").val();
 
     //Email validation
     if (emailaddress == '') {
-      if (emailaddress == '') {
-        alert('Your email can not be blank');
-        event.preventDefault();
-      } else if (!emailReg.test(emailaddress)) {
-        alert('Please make sure you email is in correct format.');
-        event.preventDefault();
-      }
+      $(".subscribe p, .newsletter_error").remove();
+      $("#newsletter_form").before('<div class="newsletter_error">&#x2717;&nbsp; Your email can not be blank.</div>');
+      return false;
+    } else if (!emailReg.test(emailaddress)) {
+      $(".subscribe p, .newsletter_error").remove();
+      $("#newsletter_form").before('<div class="newsletter_error">&#x2717;&nbsp;Please make sure you email is in correct format.</div>')
+      return false;
     }
-
+    //Ajax Submit
     var values = $('#newsletter_form').serialize();
-
     $.ajax({
       type: 'POST',
       url: 'http://localhost:8888/activeprospect/www/wp-content/themes/activeprospect2/process.php',
@@ -188,17 +214,68 @@ jQuery(document).ready(function($) {
       async: false,
       beforeSend: function() {
         $('#newsletter_form').text('Loading...');
-
       },
       complete: function() {
         $('#newsletter_form').html('Cool beans');
-
       }
     });
   });
 
   //Contact Us Ajax Call
-  $('#submit_contactus').click(function() {
+  $('#submit_contactus').on("click", function() {
+
+    var emailReg = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9\-]+\.)+([a-zA-Z]{2,4})))$/;
+    var emailaddress = $(".email").val();
+    var phoneReg = /^(1-?)?(([2-9]\d{2})|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/;
+    var phone = $(".phone2").val();
+
+    if (!/\D$/.test($(".first_name").val())) {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please enter your first name.</div>');
+      return false;
+    }
+    if (!/\D$/.test($(".last_name").val())) {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please enter your last name.</div>');
+      return false;
+    }
+
+    if (emailaddress == '') {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please enter your email.</div>');
+      return false;
+    } else if (!emailReg.test(emailaddress)) {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please make sure your email is in correct format.</div>');
+      return false;
+    }
+    if (phone == '') {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please enter your phone number.</div>');
+      return false;
+    } else if (!phoneReg.test(phone)) {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please make sure you\'ve entered your phone number.</div>');
+      return false;
+    }
+    if ($(".company").val() == "") {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please enter your company name.</div>');
+      return false;
+    }
+    if ($(".website").val() == "") {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please enter your company\'s website.</div>');
+      return false;
+    }
+    if ($('.found-select').length == 0 || $('.found-select').val() == "") {
+      $(".contact-us-form p, .contactus_error").remove();
+      $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please tell us how you heard of us. </div>');
+      return false;
+    }
+
+
+    //Ajax Submit
     var dataString = $("#contactus_form").serialize();
     $.ajax({
       type: 'POST',
@@ -206,17 +283,15 @@ jQuery(document).ready(function($) {
       data: dataString,
       dataType: 'json',
       async: false,
-      success: function(d) {
-        $('#contactus_form').html('Success');
-      },
       beforeSend: function() {
-        // Code to display spinner
+        $('#contactus_form').text('Loading...');
       },
       complete: function() {
-        $('#contactus_form').html('Success');
+        $('#contactus_form').html('Cool beans');
       }
     });
   });
+
 
   //Footer Form
   $("#found_input").change(function() {
@@ -251,7 +326,7 @@ jQuery(document).ready(function($) {
 
 
 /* Tabs Activiation
-		================================================== */
+    ================================================== */
   var tabs = $('ul.tabs');
   tabs.each(function(i) {
     //Get all tabs

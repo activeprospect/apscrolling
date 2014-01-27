@@ -25,11 +25,11 @@
 					</ul>
 											
 					</div>
-					<div class="six columns">
+					<div class="six columns subscribe">
 						<h4>Subscribe</h4>
 						<p>Enter your email and sign up for our newsletter</p>
 						<form method="post" id="newsletter_form" name="newsletter_form">
-							<input type="text" class="newsletter_email" name="newsletter_email" placeholder="Enter your email address" value="">
+							<input type="text" class="newsletter_email" name="newsletter_email" id="newsletter_email" placeholder="Enter your email address" value="">
 								<input type="hidden" name="source" value="<?php echo $_SESSION['source']; ?>">
 								<input type="hidden" name="subsource" value="<?php echo $_SESSION['subsource']; ?>">
 								<input type="hidden" name="newsletter">
@@ -50,14 +50,14 @@
 					</div>
 					
 					</div>
-					<div class="six columns">
+					<div class="six columns contact-us-form">
 						<h4 id="contact">Contact Us</h4>   
 						<p>Complete the form below to request additional information</p>
 							<form method="post" id="contactus_form" name="contactus_form">
 								<input type="text" name="first_name" placeholder="First Name" class="first_name">
 								<input type="text" name="last_name" placeholder="Last Name" class="last_name">	
 								<input type="text" name="email" placeholder="Email" class="email">
-								<input type="text" name="phone" placeholder="Phone" class="phone">
+								<input type="text" name="phone" placeholder="Phone" class="phone2">
 								<input type="text" name="phoneext" placeholder="Ext" class="phoneext">
 								<input type="text" name="company" placeholder="Company" class="company">
 								<input type="text" name="website" placeholder="Website" class="website">
@@ -73,6 +73,7 @@
 									</select>
 								</div>
 									<input type="hidden" name="contactus">
+									<input type="hidden" name="ap_site" value="ap.com">
 									<input type="hidden" name="source" value="<?php echo $_SESSION['source']; ?>">
 									<input type="hidden" name="subsource" value="<?php echo $_SESSION['subsource']; ?>">
 								<button type="submit" id="submit_contactus" class="submit_contactus">Contact Us</button>
