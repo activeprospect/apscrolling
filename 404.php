@@ -5,7 +5,7 @@ header("Location: http://activeprospect.com");
 exit();
 
 get_header();
-get_template_part( 'menu', 'index' ); //the  menu + logo/site title ?>
+?>
 
 	<div class="two-thirds column alpha">
 		<div id="content">

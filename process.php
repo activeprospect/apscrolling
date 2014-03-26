@@ -4,6 +4,7 @@ if(isset($_POST['newsletter'])) {
 #Newsletter form submission
 $email = $_POST['newsletter_email'];
 $xxTrustedFormCertUrl = $_POST['xxTrustedFormCertUrl'];
+$xxSiteId = "1d7df10";
 $source = $_POST['source'];
 $subsource = $_POST['subsource'];
 $xxAccountId = "1d7def1";
@@ -14,7 +15,6 @@ $xxCampaignId = "054vw8rg5";
 $query_array  = array(
 	'email'=>$email,
 	'xxTrustedFormCertUrl'=>$xxTrustedFormCertUrl,	
-	'xxTest'=>'true',	
 	'source'=>$source,	
 	'subsource'=>$subsource,	
 	'xxAccountId'=>$xxAccountId,
@@ -22,14 +22,14 @@ $query_array  = array(
 );
 
 	$leadconduit = "https://production.leadconduit.com/ap/v2/PostLeadAction?".http_build_query($query_array)."";
-	// 	
-	// $ch = curl_init();
-	// curl_setopt($ch, CURLOPT_URL, "$leadconduit");
-	// curl_setopt($ch, CURLOPT_HEADER, 0);
-	// curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-	// curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-	// curl_exec($ch);
-	// curl_close($ch);
+	
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "$leadconduit");
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+	curl_exec($ch);
+	curl_close($ch);
 	
 }
 
@@ -61,7 +61,6 @@ $query_array  = array(
 	'website'=>$website,
 	'found'=>$found,
 	'xxTrustedFormCertUrl'=>$xxTrustedFormCertUrl,	
-	'xxTest'=>'true',	
 	'source'=>$source,	
 	'subsource'=>$subsource,	
 	'xxSiteId'=>$xxSiteId,
@@ -71,15 +70,15 @@ $query_array  = array(
 
 	$leadconduit = "https://production.leadconduit.com/ap/v2/PostLeadAction?".http_build_query($query_array)."";
 	
-	// $ch = curl_init();
-	// curl_setopt($ch, CURLOPT_URL, "$leadconduit");
-	// curl_setopt($ch, CURLOPT_HEADER, 0);
-	// curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-	// curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-	// curl_exec($ch);
-	// curl_close($ch);
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "$leadconduit");
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+	curl_exec($ch);
+	curl_close($ch);
 }
 
-
+sleep(3);
 
 ?>

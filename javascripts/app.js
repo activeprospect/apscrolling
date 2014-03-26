@@ -22,71 +22,15 @@ jQuery(document).ready(function($) {
   };
 
   if (isMobile.any()) $('div, img').removeClass('notViewed animBlock');
+  if( isMobile.any()) $('.menu-primary-container ul li').addClass('mobilepad'); 
+  if( isMobile.any()) $('.client-testimonial').css('font-size', '15px'); 
 
-
-  if ($("html").hasClass("ie8")) {
-    $("section#team li:nth-child(odd)").addClass('list-margin');
-    $("section.team li:nth-child(odd)").addClass('list-margin');
-  };
-
-
-  $(function() { // run after page loads
-    $('.menu-primary-container ul').find('li.current-menu-item, .home li#menu-item-27').addClass('active').prev('li').end();
-    $('body .home').find('.menu-primary-container li:first-child').addClass('active');
-  });
-
-  $(function() { // run after page loads
-    $('#ljsubpageswidget-2 ul').find('li.current_page_item').addClass('subactive');
-
-    //jobs pages highlight Careers tab
-    $(".page-template-aboutus-php").find(".menu-item-90").addClass("active").prev('li').addClass('rem-seperator');
-    $(".parent-pageid-316").find(".menu-item-335").addClass("active").prev('li').addClass('rem-seperator');
-    $('.page-id-289, .page-id-291,.page-id-304,.page-id-333').find('li.page-item-292').addClass('subactive');
-    $(".single-post").find(".menu-item-384").addClass("active").prev('li').addClass('rem-seperator');
-    $(".single-post").find(".menu-item-27").addClass('add-seperator');
-
-
-  });
-
-  //Clickable li
-  $(function() { // run after page loads
-    $('ul.container li, ul.productlist li').css('cursor', 'pointer');
-    $('ul.container li, ul.productlist li').click(function() {
-      window.open($(this).find("a").attr("href"));
-      return false;
-    });
-  });
+  $('.page-id-644 #menu-item-363,.page-id-666 #menu-item-363, .page-id-754 #menu-item-363, .page-id-756 #menu-item-363, .page-id-542 .menu-item-888, .page-id-156 .menu-item-888, .page-id-540 .menu-item-888, .page-id-569 .menu-item-888').addClass('current-menu-item');
+  $('#post-6 .container, #post-644 .container, #post-666 .container, #post-756 .container, #post-754 .container').removeClass('container');
+  $('#post-6 .product, #post-644 section, #post-666 section, #post-756 section, #post-754 section').wrapInner('<div class="container"></div>');
 
 
 
-  //Main Carosuel
-  $('#heroes').carouFredSel({
-    auto: true,
-    prev: '#prev',
-    next: '#next',
-    pagination: "#mainpager",
-    infinite: true,
-    mousewheel: true,
-    delay: 3000,
-    timeoutDuration: 5000,
-    items: {
-      visible: 1,
-    },
-    scroll: {
-      easing: 'quadratic',
-      fx: "fade",
-      duration: 1200,
-      pauseOnHover: true
-    },
-    swipe: {
-      onMouse: true,
-      onTouch: true
-    },
-    onBefore: function() {
-      $("#prev").addClass("animated fadeInDown");
-      $("#next").addClass("animated fadeInDown");
-    }
-  })
   // Smooth Scroll to Contact Us
   $(function() {
     $('a[href*=#]:not([href=#])').click(function() {
@@ -153,16 +97,22 @@ jQuery(document).ready(function($) {
   //Testimonials Carosuel
   $('#testimonials').carouFredSel({
     auto: true,
-    prev: '#prev2',
-    next: '#next2',
-    pagination: "#pager2",
+    pagination: {
+      container: '#mainpager2'
+    },
+//     prev: {
+//        button  : "#msprev"
+// },
+// next: {
+//        button  : "#msnext"
+// },
     infinite: true,
     mousewheel: true,
     delay: 3000,
     timeoutDuration: 5000,
     items: {
-      visible: 3,
-      height: 385,
+      visible: 1,
+      height: 300
     },
     scroll: {
       easing: 'quadratic',
@@ -181,14 +131,6 @@ jQuery(document).ready(function($) {
   });
 
 
-  // Ajax loading gif
-  $('#loading').hide().ajaxStart(function() {
-    $(this).show();
-  }).ajaxStop(function() {
-    $(this).hide();
-  });
-
-
   //Newlsetter Ajax call
   $('#submit_newsletter').on("click", function() {
     var emailReg = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9\-]+\.)+([a-zA-Z]{2,4})))$/;
@@ -204,24 +146,27 @@ jQuery(document).ready(function($) {
       $("#newsletter_form").before('<div class="newsletter_error">&#x2717;&nbsp;Please make sure you email is in correct format.</div>')
       return false;
     }
+
+    $(".newsletter_error").remove();
+    
     //Ajax Submit
     var values = $('#newsletter_form').serialize();
+    $('#newsletter_form').html('<div id="loading"><img src="http://activeprospect.com/wp-content/themes/apscrolling/images/ajax-loader.gif"></div>');
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:8888/activeprospect/www/wp-content/themes/activeprospect2/process.php',
+      url: 'http://activeprospect.com/wp-content/themes/apscrolling/process.php',
       data: values,
       dataType: 'json',
-      async: false,
-      beforeSend: function() {
-        $('#newsletter_form').text('Loading...');
-      },
+       // beforeSend: function() {
+       //   $('#newsletter_form').html('<div id="loading"><img src="http://activeprospect.com/wp-content/themes/apscrolling/images/ajax-loader.gif"></div>');
+       // },
       complete: function() {
-        $('#newsletter_form').html('Cool beans');
+        $('#newsletter_form').html('<div style="color:#fff">Thanks!</div>');
       }
     });
   });
 
-  //Contact Us Ajax Call
+ //Contact Us Ajax Call
   $('#submit_contactus').on("click", function() {
 
     var emailReg = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9\-]+\.)+([a-zA-Z]{2,4})))$/;
@@ -268,91 +213,25 @@ jQuery(document).ready(function($) {
       $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please enter your company\'s website.</div>');
       return false;
     }
-    if ($('.found-select').length == 0 || $('.found-select').val() == "") {
+    if ($('#found_input option:selected').val() == '') {
       $(".contact-us-form p, .contactus_error").remove();
       $("#contactus_form").before('<div class="contactus_error">&#x2717;&nbsp;Please tell us how you heard of us. </div>');
       return false;
     }
 
+    $(".contact-us-form p, .contactus_error").remove();
 
     //Ajax Submit
     var dataString = $("#contactus_form").serialize();
+    $('#contactus_form').html('<div id="loading"><img src="http://activeprospect.com/wp-content/themes/apscrolling/images/ajax-loader.gif"></div>');
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:8888/activeprospect/www/wp-content/themes/activeprospect2/process.php',
+      url: 'http://activeprospect.com/wp-content/themes/apscrolling/process.php',
       data: dataString,
       dataType: 'json',
-      async: false,
-      beforeSend: function() {
-        $('#contactus_form').text('Loading...');
-      },
       complete: function() {
-        $('#contactus_form').html('Cool beans');
+        $('#contactus_form').html('<div style="color:#fff">Thanks!</div>');
       }
     });
   });
-
-
-  //Footer Form
-  $("#found_input").change(function() {
-    $(this).addClass('white');
-  });
-
-  // Style Tags
-  $(function() { // run after page loads
-    $('p.tags a').wrap('<span class="st_tag" />');
-  });
-
-
-  // Toggle Slides
-  $(function() { // run after page loads
-    $(".toggle_container").hide();
-    //Switch the "Open" and "Close" state per click then slide up/down (depending on open/close state)
-    $("p.trigger").click(function() {
-      $(this).toggleClass("active").next().slideToggle("normal");
-      return false; //Prevent the browser jump to the link anchor
-    });
-  });
-
-  // valid XHTML method of target_blank
-  $(function() { // run after page loads
-    $('a[rel*=external]').click(function() {
-      window.open(this.href);
-      return false;
-    });
-  });
-
-
-
-
-/* Tabs Activiation
-    ================================================== */
-  var tabs = $('ul.tabs');
-  tabs.each(function(i) {
-    //Get all tabs
-    var tab = $(this).find('> li > a');
-    $("ul.tabs li:first").addClass("active").fadeIn('fast'); //Activate first tab
-    $("ul.tabs li:first a").addClass("active").fadeIn('fast'); //Activate first tab
-    $("ul.tabs-content li:first").addClass("active").fadeIn('fast'); //Activate first tab
-    tab.click(function(e) {
-
-      //Get Location of tab's content
-      var contentLocation = $(this).attr('href') + "Tab";
-
-      //Let go if not a hashed one
-      if (contentLocation.charAt(0) == "#") {
-
-        e.preventDefault();
-
-        //Make Tab Active
-        tab.removeClass('active');
-        $(this).addClass('active');
-
-        //Show Tab Content & add active class
-        $(contentLocation).show().addClass('active').siblings().hide().removeClass('active');
-
-      }
-    });
-  });
-
 });
